@@ -315,7 +315,11 @@ namespace KRPanorama
             else if (System.IO.File.Exists(file))
             {
                 string path = "(\"" + Thread.GetDomain().BaseDirectory + "krpano Tools.exe\" \"" +file+ "\")";//命令
-                tool.bat(path);
+                th = new Thread(delegate () {
+                    tool.bat(path);
+                });
+                th.IsBackground = true;
+                th.Start();
                 //System.Drawing.Icon.ExtractAssociatedIcon("\"" + Thread.GetDomain().BaseDirectory + "krpano Tools.exe\"").ToBitmap().Save(Thread.GetDomain().BaseDirectory+"\\krpano.ico");
             }
             else
